@@ -13,5 +13,5 @@ func _process(_delta):
 	Global.drawRectGrid(pos)
 	Global.drawCircle(pos + Vector2(60, 60))
 	Global.drawRect(pos + Vector2(160, 60))
-	Global.debug(name+"_pos", str(pos.x) + " " + str(pos.y))
+	Global.debug(name + "_pos", str(pos.x) + " " + str(pos.y))
 	pass

@@ -1,7 +1,6 @@
 # class_name Global
 extends Node2D
 
-var speed = 40
 var linesVectorPool = PoolVector2Array()
 var linesColorPool = PoolColorArray()
 
@@ -13,6 +12,7 @@ var debugPanel: DebugPanel
 func _ready():
 	print("Global::ready")
 	debugPanel = DebugPanel.new()
+	debugPanel.position = Vector2(5, 5)
 	get_tree().root.call_deferred("add_child", debugPanel)
 	pass
 
@@ -34,8 +34,10 @@ func _process(_delta):
 func getFPS():
 	return Performance.get_monitor(Performance.TIME_FPS)
 
+
 func getDrawCall():
 	return Performance.get_monitor(Performance.RENDER_2D_DRAW_CALLS_IN_FRAME)
+
 
 func drawLine(start: Vector2, end: Vector2, color: Color = Color.red):
 	linesVectorPool.append(start)
@@ -98,7 +100,6 @@ func drawRectGrid(center: Vector2, size: Vector2 = Vector2(50, 50), color: Color
 				+ Vector2(i * grid_size.x, (j + 1) * grid_size.y)
 				- grid_half_size
 			)
-
 			drawLine(grid_top_left, grid_top_right, color)
 			drawLine(grid_top_right, grid_bottom_right, color)
 			drawLine(grid_bottom_right, grid_bottom_left, color)
