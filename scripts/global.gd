@@ -4,7 +4,6 @@ extends Node2D
 var linesVectorPool = PoolVector2Array()
 var linesColorPool = PoolColorArray()
 
-var Utils = preload("res://scripts/Utils.gd")
 var DebugPanel = preload("res://scripts/DebugPanel.gd")
 var debugPanel: DebugPanel
 
@@ -21,14 +20,16 @@ func _draw():
 	#draw circles
 	if linesVectorPool.size() > 2:
 		draw_multiline_colors(linesVectorPool, linesColorPool, 1.0, false)
-		linesVectorPool = PoolVector2Array()
-		linesColorPool = PoolColorArray()
+		
 
 
 func _process(_delta):
 	debug("fps", str(getFPS()))
 	debug("draw_call", str(getDrawCall()))
+	debug("lines", str(linesVectorPool.size() / 2))
 	update()
+	linesVectorPool = PoolVector2Array()
+	linesColorPool = PoolColorArray()
 
 
 func getFPS():
