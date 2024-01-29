@@ -6,10 +6,16 @@ var linesColorPool = PoolColorArray()
 
 var DebugPanel = preload("res://scripts/DebugPanel.gd")
 var debugPanel: DebugPanel
+var DebugRender = preload("res://scripts/DebugRender.gd")
+var Vertex = preload("res://scripts/Vertex.gd")
+var render: DebugRender
 
 
 func _ready():
 	print("Global::ready")
+	render = DebugRender.new()
+	get_tree().root.call_deferred("add_child", render)
+	#debug panel
 	debugPanel = DebugPanel.new()
 	debugPanel.position = Vector2(5, 5)
 	get_tree().root.call_deferred("add_child", debugPanel)
@@ -17,19 +23,20 @@ func _ready():
 
 
 func _draw():
-	#draw circles
 	if linesVectorPool.size() > 2:
 		draw_multiline_colors(linesVectorPool, linesColorPool, 1.0, false)
-		
+		linesVectorPool = PoolVector2Array()
+		linesColorPool = PoolColorArray()
 
 
 func _process(_delta):
 	debug("fps", str(getFPS()))
 	debug("draw_call", str(getDrawCall()))
-	debug("lines", str(linesVectorPool.size() / 2))
+	# debug("lines", str(linesVectorPool.size() / 2))
 	update()
-	linesVectorPool = PoolVector2Array()
-	linesColorPool = PoolColorArray()
+	
+
+	render.addStrokeRect2(Rect2(100, 100, 100, 100),deg2rad(30),1, Color.red)
 
 
 func getFPS():
@@ -108,7 +115,7 @@ func drawRectGrid(center: Vector2, size: Vector2 = Vector2(50, 50), color: Color
 
 
 func drawCircle(center: Vector2, radius: float = 10, color: Color = Color.red):
-	var segments = max(64, int(radius / 10))
+	var segments = max(20, int(radius / 10))
 	var increment = 2 * PI / segments
 	var sinInc = sin(increment)
 	var cosInc = cos(increment)

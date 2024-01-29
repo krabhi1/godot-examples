@@ -1,24 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://render/Tree.gd" type="Script" id=2]
-
-[sub_resource type="ArrayMesh" id=2]
-surfaces/0 = {
-"aabb": AABB( -32, -32, 0, 64, 64, 0 ),
-"array_data": PoolByteArray( 0, 0, 0, 66, 0, 0, 0, 194, 0, 0, 128, 63, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 66, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 0, 194, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 0, 194, 0, 0, 0, 194, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 248, 65, 0, 0, 0, 194, 0, 0, 124, 63, 0, 0, 0, 0 ),
-"array_index_data": PoolByteArray( 4, 0, 0, 0, 1, 0, 1, 0, 2, 0, 3, 0, 3, 0, 4, 0, 1, 0 ),
-"blend_shape_data": [  ],
-"format": 262417,
-"index_count": 9,
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 5
-}
+[ext_resource path="res://render/enemy.tscn" type="PackedScene" id=1]
 
 [node name="render" type="Node2D"]
 
-[node name="Icon" type="MeshInstance2D" parent="."]
-mesh = SubResource( 2 )
-texture = ExtResource( 1 )
-script = ExtResource( 2 )
+[node name="enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 124, 168 )
+
+[node name="enemy2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 300, 72 )

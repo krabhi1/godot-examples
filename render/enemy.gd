@@ -11,8 +11,6 @@ func _ready():
 
 
 func _process(_delta):
-	Global.drawLine(position, pos)
-	# Global.drawRectGrid(pos)
-	# Global.drawCircle(pos + Vector2(60, 60))
-	Global.drawRect(pos, Vector2(10, 10), rectColor)
+	Global.render.addLine(position, pos)
+	Global.render.addFillRect(Rect2(pos, Vector2(10, 10)), rectColor)
 	pass
