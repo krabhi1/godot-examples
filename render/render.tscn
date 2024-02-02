@@ -5,7 +5,8 @@
 [node name="render" type="Node2D"]
 
 [node name="enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 124, 168 )
+position = Vector2( 88, 79 )
+rotation = -1.54198
 
 [node name="enemy2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 300, 72 )
+position = Vector2( 357, 152 )

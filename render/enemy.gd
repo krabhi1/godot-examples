@@ -11,6 +11,7 @@ func _ready():
 
 
 func _process(_delta):
-	Global.render.addLine(position, pos)
-	Global.render.addFillRect(Rect2(pos, Vector2(10, 10)), rectColor)
+	Debug.drawLine(position, pos)
+	Debug.drawFilledRect(Rect2(position, Vector2(100, 100)), rectColor)
+
 	pass

@@ -24,7 +24,7 @@ func _process(_delta):
 	if verticesPool.size() > 0:
 		update()
 		pass
-	Global.debug("Debug triangles", str(verticesPool.size() / 3))
+	# Global.debug("Debug triangles", str(verticesPool.size() / 3))
 
 
 func _draw():

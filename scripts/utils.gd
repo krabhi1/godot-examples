@@ -20,3 +20,10 @@ static func eqivalentTriangle(center, radius):
 
 static func randomVec2(a, b):
 	return Vector2(rand_range(0, a), rand_range(0, b))
+
+static func getFPS():
+	return Performance.get_monitor(Performance.TIME_FPS)
+
+
+static func getDrawCall():
+	return Performance.get_monitor(Performance.RENDER_2D_DRAW_CALLS_IN_FRAME)
