@@ -1,0 +1,15 @@
+[remap]
+
+importer="codeandweb.texturepacker_import_spritesheet"
+type="Resource"
+path="res://.import/sheet.tpsheet-b3223c7f2732a17e2f64f63888b854d6.res"
+
+[deps]
+
+files=[ "res://temp/aaa/sheet.sprites/body_redF.tres", "res://temp/aaa/sheet.sprites/body_darkC.tres", "res://temp/aaa/sheet.sprites/arm_blueA.tres", "res://temp/aaa/sheet.sprites/detail_blue_horn_large.tres" ]
+
+source_file="res://temp/aaa/sheet.tpsheet"
+dest_files=[ "res://.import/sheet.tpsheet-b3223c7f2732a17e2f64f63888b854d6.res", "res://temp/aaa/sheet.sprites/body_redF.tres", "res://temp/aaa/sheet.sprites/body_darkC.tres", "res://temp/aaa/sheet.sprites/arm_blueA.tres", "res://temp/aaa/sheet.sprites/detail_blue_horn_large.tres" ]
+
+[params]
+

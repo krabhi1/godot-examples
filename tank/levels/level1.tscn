@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://tank/assets/sprites/tileGrass2.png" type="Texture" id=1]
+[ext_resource path="res://tank/levels/level1.gd" type="Script" id=2]
+[ext_resource path="res://tank/assets/sprites/tileGrass_transitionE.png" type="Texture" id=3]
+[ext_resource path="res://tank/assets/sprites/tileSand2.png" type="Texture" id=4]
+[ext_resource path="res://tank/parts/tank.tscn" type="PackedScene" id=5]
+
+[node name="level1" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ground" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="grass" type="Sprite" parent="ground"]
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1000, 2000 )
+
+[node name="TileGrassTransitionE" type="Sprite" parent="ground"]
+position = Vector2( 936, 0 )
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 64, 2000 )
+
+[node name="sand" type="Sprite" parent="ground"]
+position = Vector2( 1000, 0 )
+texture = ExtResource( 4 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 1000, 2000 )
+
+[node name="tank" parent="." instance=ExtResource( 5 )]
+position = Vector2( 216, 208 )

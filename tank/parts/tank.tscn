@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://tank/assets/sheets/sheet_1/sheet.sprites/tankBlue_barrel2.tres" type="Texture" id=1]
+[ext_resource path="res://tank/assets/sheets/sheet_1/sheet.sprites/tankBody_blue.tres" type="Texture" id=2]
+[ext_resource path="res://tank/parts/tank.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 17, 18 )
+
+[node name="tank" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="body" type="Sprite" parent="."]
+rotation = 3.14159
+texture = ExtResource( 2 )
+
+[node name="barrel" type="Sprite" parent="."]
+rotation = 3.14159
+texture = ExtResource( 1 )
+offset = Vector2( 0, 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

@@ -1,0 +1,11 @@
+[remap]
+
+importer="codeandweb.texturepacker_import_spritesheet"
+type="Resource"
+valid=false
+
+[deps]
+
+source_file="res://tank/sheet.tpsheet"
+[params]
+
