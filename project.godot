@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Vertex",
 "language": "GDScript",
 "path": "res://temp/Vertex.gd"
+}, {
+"base": "Node2D",
+"class": "smooth",
+"language": "GDScript",
+"path": "res://smooth/smooth.gd"
 } ]
 _global_script_class_icons={
 "DebugPanel": "",
 "DebugRender": "",
 "Person": "",
-"Vertex": ""
+"Vertex": "",
+"smooth": ""
 }
 
 [application]

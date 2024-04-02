@@ -34,3 +34,14 @@ static func dirVec():
 	if Input.is_action_pressed("right"):
 		direction.x += 1
 	return direction
+
+static func drawPlus(center: Vector2, size: float, color: Color=Color(1, 0.2, 0.1)):
+	Debug.drawLine(center - Vector2(size, 0), center + Vector2(size, 0), color, 1)
+	Debug.drawLine(center - Vector2(0, size), center + Vector2(0, size), color, 1)
+
+static func lookAtSmooth(node: Node2D, look_at: Vector2, t: float):
+	var angle =look_at.angle_to_point(node.global_position)
+	node.rotation = lerp_angle(node.rotation, angle, t)
+
+static func angleToTarget(src:Vector2,target:Vector2):
+	return target.angle_to_point(src)

@@ -17,20 +17,17 @@ var colorsPool = PoolColorArray()
 var indicesPool = PoolIntArray()
 #---------------node callback-----------------
 
-
 func _ready():
-	position = Vector2(5, 5)
+	position = Vector2(0, 0)
 	_ready_render()
 	_initDebugPanel()
 	# add node last to make sure it is on top
 	z_index = 999
 	pass
 
-
 func _input(event):
 	_input_panel(event)
 	pass
-
 
 func _process(_delta):
 	update()
@@ -40,15 +37,12 @@ func _process(_delta):
 	logUI("DrawCall", str(Utils.getDrawCall()))
 	pass
 
-
 func _draw():
 	_draw_render()
 	_draw_panel()
 	pass
 
-
 #---------------ui panel-----------------
-
 
 func _initDebugPanel():
 	name = "Debug"
@@ -57,13 +51,12 @@ func _initDebugPanel():
 	print("DebugPanel ready" + str(position.x) + "," + str(position.y))
 	pass
 
-
 func _draw_panel():
 	#draw background
 	var fontHeight = font.get_height()
 	var rect = Rect2(
-		0,
-		0,
+		5,
+		5,
 		maxKeyWidth + 10 + maxValueWidth + padding.left + padding.right,
 		keyValues.size() * (font.get_height() + textGap) + padding.top + padding.bottom - textGap
 	)
@@ -84,14 +77,12 @@ func _draw_panel():
 		if not isOpen and i > 1:
 			break
 
-
 func _input_panel(event):
 	if event is InputEventMouseButton:
 		if event.doubleclick and event.button_index == BUTTON_LEFT:
 			isOpen = !isOpen
 
-
-func updateMaxWidth(key: String = "", value: String = ""):
+func updateMaxWidth(key: String="", value: String=""):
 	if font == null:
 		return
 
@@ -110,39 +101,40 @@ func updateMaxWidth(key: String = "", value: String = ""):
 			if oldValue != value:
 				_updateValueMaxWidth(value)
 
-
 func _updateKeyMaxWidth(key: String):
 	var keyWidth = font.get_string_size(key).x
 	if keyWidth > maxKeyWidth:
 		maxKeyWidth = keyWidth
-
 
 func _updateValueMaxWidth(value: String):
 	var valueWidth = font.get_string_size(value).x
 	if valueWidth > maxValueWidth:
 		maxValueWidth = valueWidth
 
-
 func logUI(key: String, value: String) -> void:
 	updateMaxWidth(key, value)
 	keyValues[key] = value
 	pass
 
-
 #---------------drawing panel-----------------
-
 
 func _ready_render():
 	rid = get_canvas_item()
 	pass
 
-
 func _draw_render():
 	if verticesPool.size() > 0:
+		#transform 10,10
+		# var oldTransform = VisualServer.canvas_item_get_transform(rid)
+		# var transform = Transform2D()
+		# transform = transform.translated(Vector2(10, 10))
+		# VisualServer.canvas_item_set_transform(rid, transform)
 		VisualServer.canvas_item_add_triangle_array(rid, indicesPool, verticesPool, colorsPool)
+		#back to origin
+		# VisualServer.canvas_item_set_transform(rid, oldTransform)
+		
 		_clear_render()
 	pass
-
 
 func _clear_render():
 	verticesPool = PoolVector2Array()
@@ -150,23 +142,19 @@ func _clear_render():
 	indicesPool = PoolIntArray()
 	pass
 
+func isPointInsideViewport(point: Vector2) -> bool:
+	var rect = get_viewport_rect()
+	return point.x >= rect.position.x and point.x <= rect.end.x and point.y >= rect.position.y and point.y <= rect.end.y
 
 func addTriangle(v1, v2, v3, color):
-	#check point is visible in viewport
-	if (
-		not get_viewport_rect().has_point(v1)
-		and not get_viewport_rect().has_point(v2)
-		and not get_viewport_rect().has_point(v3)
-	):
-		return
+	#TODO check triangle is visible in viewport
 	var index = verticesPool.size()
 	verticesPool.append_array([v1, v2, v3])
 	colorsPool.append_array([color, color, color])
 	indicesPool.append_array([index, index + 1, index + 2])
 	pass
 
-
-func drawLine(a: Vector2, b: Vector2, color: Color = Color.whitesmoke, width: float = 1) -> void:
+func drawLine(a: Vector2, b: Vector2, color: Color=Color.whitesmoke, width: float=1) -> void:
 	width = width / 2.0
 	#find the normal of the line
 	var normal = (b - a).normalized().tangent()
@@ -179,15 +167,13 @@ func drawLine(a: Vector2, b: Vector2, color: Color = Color.whitesmoke, width: fl
 	addTriangle(p1, p2, p3, color)
 	addTriangle(p2, p3, p4, color)
 
-
-func drawPolyLine(points: Array, color: Color = Color.orangered, width: float = 1):
+func drawPolyLine(points: Array, color: Color=Color.orangered, width: float=1):
 	var s = points.size()
 	for i in range(0, s - 1):
 		drawLine(points[i], points[i + 1], color, width)
 	pass
 
-
-func drawRect(rect: Rect2, color: Color = Color.red, width = 1) -> void:
+func drawRect(rect: Rect2, color: Color=Color.red, width=1) -> void:
 	var p1 = Vector2(rect.position.x, rect.position.y)
 	var p2 = Vector2(rect.position.x + rect.size.x, rect.position.y)
 	var p3 = Vector2(rect.position.x + rect.size.x, rect.position.y + rect.size.y)
@@ -195,12 +181,10 @@ func drawRect(rect: Rect2, color: Color = Color.red, width = 1) -> void:
 	drawPolyLine([p1, p2, p3, p4, p1], color, width)
 	pass
 
-
 # func drawCircle(position: Vector2, radius: float, color: Color = Color.blue) -> void:
 # 	pass
 
-
-func drawFilledRect(rect: Rect2, color: Color = Color.orange) -> void:
+func drawFilledRect(rect: Rect2, color: Color=Color.orange) -> void:
 	var p1 = Vector2(rect.position.x, rect.position.y)
 	var p2 = Vector2(rect.position.x + rect.size.x, rect.position.y)
 	var p3 = Vector2(rect.position.x + rect.size.x, rect.position.y + rect.size.y)
@@ -208,8 +192,7 @@ func drawFilledRect(rect: Rect2, color: Color = Color.orange) -> void:
 	addTriangle(p1, p2, p3, color)
 	addTriangle(p1, p3, p4, color)
 
-
-func drawFilledCircle(center: Vector2, radius: float, color: Color = Color.aqua) -> void:
+func drawFilledCircle(center: Vector2, radius: float, color: Color=Color.aqua) -> void:
 	var circumeference = 2 * PI * radius
 	var segments = max(min(int(radius * 8 / 9.0), 10), int(circumeference / 10))
 	var increment = 2 * PI / segments
@@ -225,4 +208,3 @@ func drawFilledCircle(center: Vector2, radius: float, color: Color = Color.aqua)
 		v2 = center + r2 * radius
 		addTriangle(v1, v2, v3, color)
 		pass
-

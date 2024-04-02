@@ -1,10 +1,12 @@
 extends Node2D
-
+class_name smooth
 onready var box1 = $box1
+onready var stick = $stick
 #speed in pixels per second
 var smooth = null
 func _ready():
-	smooth = Smooth2.new(box1)
+	smooth = SmoothLerp.new(box1)
+	smooth.node2 = stick
 	pass
 	
 func _process(delta):
@@ -13,12 +15,16 @@ func _process(delta):
 
 class BaseSmooth:
 	var node = null
+	var node2=null
 	func _init(_node):
 		self.node = _node
 		pass
 
 	func update(_delta):
 		pass
+	
+	func getMousePos():
+		return node.get_viewport().get_mouse_position()
 
 class Smooth1 extends BaseSmooth:
 	var speed = 100
@@ -49,9 +55,24 @@ class Smooth2 extends Smooth1:
 		else:
 			velocity = velocity.linear_interpolate(target_velocity, acceleration * delta)
 		
-		Debug.drawLine(Vector2.ZERO,node.global_position)
+		Debug.drawLine(Vector2.ZERO, node.global_position)
 		Debug.logUI("velocity", str(velocity))
 		
 		node.position += velocity * delta
 
+class SmoothLerp extends BaseSmooth:
+	var target = Vector2(400, 400)
+	var speed = 1
+	func _init(_node).(_node):
+		pass
 
+	func update(delta):
+		node.position = node.position.linear_interpolate(target, speed * delta)
+		Utils.lookAtSmooth(node2,getMousePos(),0.05)
+
+		Utils.drawPlus(node2.global_position, 100)
+		# Debug.drawLine(Vector2.ZERO, getMousePos())
+		pass
+	
+	func angleToTarget():
+		return getMousePos().angle_to_point(node2.global_position)
