@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://tank/assets/sprites/tileGrass2.png" type="Texture" id=1]
 [ext_resource path="res://tank/levels/level1.gd" type="Script" id=2]
 [ext_resource path="res://tank/assets/sprites/tileGrass_transitionE.png" type="Texture" id=3]
 [ext_resource path="res://tank/assets/sprites/tileSand2.png" type="Texture" id=4]
 [ext_resource path="res://tank/parts/tank.tscn" type="PackedScene" id=5]
+[ext_resource path="res://1px.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 134.5 )
 
 [node name="level1" type="Node2D"]
 script = ExtResource( 2 )
@@ -36,3 +40,24 @@ region_rect = Rect2( 0, 0, 1000, 2000 )
 
 [node name="tank" parent="." instance=ExtResource( 5 )]
 position = Vector2( 216, 208 )
+
+[node name="block" type="StaticBody2D" parent="."]
+position = Vector2( 448, 208 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="1Px" type="Sprite" parent="block"]
+position = Vector2( 0, 1.5 )
+scale = Vector2( 32, 269 )
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="block"]
+position = Vector2( 0, 1.5 )
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 233, 190 )
+current = true
+
+[connection signal="shoot" from="tank" to="." method="_on_tank_shoot"]

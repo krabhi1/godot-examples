@@ -5,19 +5,28 @@
 [ext_resource path="res://tank/parts/tank.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 17, 18 )
+extents = Vector2( 17, 14 )
 
 [node name="tank" type="KinematicBody2D"]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="body" type="Sprite" parent="."]
-rotation = 3.14159
+rotation = -1.5708
 texture = ExtResource( 2 )
-
-[node name="barrel" type="Sprite" parent="."]
-rotation = 3.14159
-texture = ExtResource( 1 )
-offset = Vector2( 0, 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="barrel" type="Node2D" parent="."]
+rotation = -3.11367
+
+[node name="sprite" type="Sprite" parent="barrel"]
+rotation = -1.5708
+texture = ExtResource( 1 )
+offset = Vector2( 0, 13 )
+
+[node name="point" type="Node2D" parent="barrel"]
+position = Vector2( 40, 0 )
